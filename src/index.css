@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+/* 디자인 토큰: 여기 이름이 Tailwind 클래스가 된다 (예: --color-primary → bg-primary, text-primary)
+   기준: Stitch "Tomato Naver Portal" + spec 결정(개선 청록빛 초록 / 악화 빨강, 2026-10-13 파랑 → 청록빛 초록: 주식 파랑과 겹치지 않고 색각 이상에도 빨강과 구분). 자세한 규칙은 docs/design/ */
+@theme {
+  /* 브랜드 */
+  --color-primary: #e23e28; /* 토마토: 그래프 선, 큰 숫자 (24px 이상) */
+  --color-primary-strong: #c52e1a; /* 진한 토마토: 버튼 배경, 작은 글자 (대비 4.5:1 이상) */
+  --color-primary-hover: #a82312; /* 진한 토마토 버튼에 마우스 올림 */
+  --color-primary-tint: #faeceb; /* 선택된 알약 배경, 눌림 */
+
+  /* 글자 */
+  --color-ink: #1b1d1f; /* 제목, 큰 숫자 */
+  --color-muted: #6c727a; /* 보조 글, 날짜, 출처 */
+
+  /* 바탕과 테두리 */
+  --color-canvas: #f6f7f9; /* 페이지 바탕 */
+  --color-surface: #ffffff; /* 카드 */
+  --color-hairline: #eaecef; /* 1px 테두리, 구분선 */
+
+  /* 전주 대비 (spec 결정 2) */
+  --color-good: #0f766e; /* 개선 (흰 바탕 대비 5.47:1). 배지 · 그래프 막대 공통 */
+  --color-good-tint: #e6f4f2;
+  --color-bad: #b42318; /* 악화, 오류 (토마토보다 어두운 빨강) */
+  --color-bad-tint: #fdecea;
+
+  /* 글꼴: 영문 DM Sans → 한글 Pretendard */
+  --font-sans:
+    'DM Sans', 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+  --font-display:
+    'Bricolage Grotesque', 'Pretendard Variable', Pretendard, system-ui,
+    sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+}

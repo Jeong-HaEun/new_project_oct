@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adporter 파일 구조</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 24px;
+        background: #fff;
+        color: #222;
+      }
+      h1 {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Adporter 파일 구조도</h1>
+    <pre class="mermaid">
+flowchart TD
+  root["📁 project_oct<br/>프로젝트 최상위 폴더"]
+
+  root --> index["index.html<br/>진입 HTML"]
+  root --> vite["vite.config.js<br/>Vite 설정"]
+  root --> pkg["package.json<br/>패키지·명령어 목록"]
+  root --> lock["package-lock.json<br/>설치 버전 고정"]
+  root --> oxlint[".oxlintrc.json<br/>린트 규칙"]
+  root --> gitignore[".gitignore<br/>git 제외 목록"]
+  root --> claudeMd["CLAUDE.md<br/>Claude 작업 안내서"]
+  root --> readme["README.md<br/>프로젝트 소개"]
+
+  root --> public["📁 public<br/>그대로 복사되는 파일"]
+  public --> favicon["favicon.svg<br/>탭 아이콘"]
+  public --> icons["icons.svg<br/>아이콘 모음"]
+
+  root --> src["📁 src<br/>화면 코드"]
+  src --> main["main.jsx<br/>React 시작점"]
+  src --> app["App.jsx<br/>최상위 컴포넌트"]
+  src --> indexCss["index.css<br/>전역 스타일·색 변수"]
+  src --> appCss["App.css<br/>부분별 모양"]
+  src --> prompt["prompt.md<br/>작업 메모"]
+  src --> assets["📁 assets<br/>이미지"]
+  assets --> hero["hero.png<br/>대표 이미지"]
+  assets --> reactSvg["react.svg<br/>React 로고"]
+  assets --> viteSvg["vite.svg<br/>Vite 로고"]
+
+  root --> docs["📁 docs<br/>자세한 규칙 문서"]
+  docs --> api["api.md<br/>API 규칙"]
+  docs --> metrics["metrics.md<br/>지표 계산 규칙"]
+  docs --> fs["file-structure.html<br/>이 구조도"]
+
+  root --> claude["📁 .claude<br/>Claude 설정"]
+  claude --> skills["📁 skills<br/>스킬 모음"]
+  skills --> mermaid["📁 mermaid-diagram"]
+  mermaid --> skill["SKILL.md<br/>구조도 그리기 레시피"]
+  </pre>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
+      mermaid.initialize({ startOnLoad: true })
+    </script>
+  </body>
+</html>
