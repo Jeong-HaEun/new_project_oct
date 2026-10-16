@@ -41,6 +41,18 @@ export function App() {
     if (result.type === 'success') loadReports()
   }
 
+  function handleHomeClick(event) {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    )
+      return
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
   function handleRetry() {
     setErrorMessage(null)
     setRows(null)
@@ -55,6 +67,7 @@ export function App() {
             <h1 className="font-display text-2xl font-extrabold tracking-tight md:text-3xl">
               <Link
                 to="/"
+                onClick={handleHomeClick}
                 aria-label="Adporter 메인으로 이동"
                 className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-strong"
               >
