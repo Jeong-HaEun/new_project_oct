@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../api/supabase.js'
+import { signInWithKakao } from '../api/auth.js'
 import { App } from '../App.jsx'
+import { isEmbedded } from '../utils/embed.js'
+
+// 한클래스 보고서 페이지에 끼워 넣어 열렸는지 (로그인·로그아웃은 한클래스가 맡는다)
+const embedded = isEmbedded(window.location.search, window.self !== window.top)
 
 export function AuthGate() {
   const [session, setSession] = useState(null)
@@ -60,6 +65,18 @@ export function AuthGate() {
     }
   }
 
+  // 카카오 화면으로 이동한다. 실패하면 버튼을 다시 살리고 안내한다
+  async function handleKakaoLogin() {
+    setIsSubmitting(true)
+    setErrorMessage('')
+    try {
+      await signInWithKakao()
+    } catch (error) {
+      setErrorMessage(error.message)
+      setIsSubmitting(false)
+    }
+  }
+
   async function handleLogout() {
     setErrorMessage('')
     try {
@@ -90,6 +107,16 @@ export function AuthGate() {
         로그인 상태를 확인하고 있어요.
       </p>
     )
+  if (session && embedded) return <App key={session.user.id} />
+  if (embedded) {
+    return (
+      <main className="mx-auto max-w-xl p-5">
+        <p className="text-sm text-ink">
+          한클래스에서 카카오로 로그인하면 내 보고서가 열려요.
+        </p>
+      </main>
+    )
+  }
   if (session) {
     return (
       <>
@@ -118,7 +145,19 @@ export function AuthGate() {
       <p className="mt-3 text-sm text-muted">
         로그인하면 내 광고 데이터를 불러오고 CSV를 저장할 수 있어요.
       </p>
-      <form onSubmit={handleLogin} className="mt-6 flex flex-col gap-3">
+      <button
+        type="button"
+        onClick={handleKakaoLogin}
+        disabled={isSubmitting}
+        className="mt-6 h-11 w-full rounded bg-kakao px-4 text-sm font-semibold text-on-kakao hover:bg-kakao-hover disabled:opacity-40"
+      >
+        카카오로 로그인
+      </button>
+      <p className="mt-2 text-xs text-muted">
+        한클래스와 같은 카카오 계정으로 로그인돼요.
+      </p>
+      <p className="mt-6 text-sm text-muted">또는 이메일로 로그인</p>
+      <form onSubmit={handleLogin} className="mt-2 flex flex-col gap-3">
         <label className="text-sm text-ink">
           이메일
           <input
@@ -155,7 +194,7 @@ export function AuthGate() {
         </button>
       </form>
       <p className="mt-4 text-xs text-muted">
-        계정은 서비스 운영자가 등록해 드려요.
+        이메일 계정은 서비스 운영자가 등록해 드려요.
       </p>
     </main>
   )

@@ -24,6 +24,11 @@
   --color-bad: #b42318; /* 악화, 오류 (토마토보다 어두운 빨강) */
   --color-bad-tint: #fdecea;
 
+  /* 카카오 로그인 버튼 전용 — 카카오 디자인 가이드 색 (노란 바탕 + 검은 글자) */
+  --color-kakao: #fee500;
+  --color-kakao-hover: #fada0a;
+  --color-on-kakao: #191919;
+
   /* 글꼴: 영문 DM Sans → 한글 Pretendard */
   --font-sans:
     'DM Sans', 'Pretendard Variable', Pretendard, system-ui, sans-serif;
