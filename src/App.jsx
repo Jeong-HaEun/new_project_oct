@@ -1,6 +1,6 @@
 // 최상위 컴포넌트: 처음 열릴 때 전체 데이터를 한 번 불러오고, 주소에 맞는 페이지를 보여 준다 (PRD ADR-1 · ADR-2).
 import { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router'
+import { Link, Route, Routes } from 'react-router'
 import { fetchReports } from './api/reports.js'
 import { CsvUploadButton } from './components/CsvUploadButton.jsx'
 import { ErrorState } from './components/ErrorState.jsx'
@@ -53,7 +53,13 @@ export function App() {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-3.5 py-3 md:px-6">
           <div>
             <h1 className="font-display text-2xl font-extrabold tracking-tight md:text-3xl">
-              Adporter
+              <Link
+                to="/"
+                aria-label="Adporter 메인으로 이동"
+                className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-strong"
+              >
+                Adporter
+              </Link>
             </h1>
             <p className="text-xs text-muted">광고 성과 보고서</p>
           </div>
