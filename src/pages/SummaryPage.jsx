@@ -12,6 +12,7 @@ import { FunnelInsight } from '../components/FunnelInsight.jsx'
 import { MediaFilter } from '../components/MediaFilter.jsx'
 import { MetricTable } from '../components/MetricTable.jsx'
 import { PeriodBars } from '../components/PeriodBars.jsx'
+import { ReportComment } from '../components/ReportComment.jsx'
 import { CARD_GRID, SummaryCard } from '../components/SummaryCard.jsx'
 import { TrendChart } from '../components/TrendChart.jsx'
 import { WeekdayTrendTable } from '../components/WeekdayTrendTable.jsx'
@@ -115,6 +116,7 @@ export function SummaryPage({ rows, onTemplateDownload, onUploadResult }) {
     <>
       <MediaFilter media={media} onChange={handleMediaChange} />
       <DataDateBar latestDate={latestDate} delayDays={delayDays} />
+      <ReportComment rows={mediaRows} latestDate={latestDate} media={media} />
       <section aria-label="최근 7일 합계" className={`mt-3 ${CARD_GRID}`}>
         {cards.map((card) => (
           <SummaryCard

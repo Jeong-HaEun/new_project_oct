@@ -62,6 +62,8 @@ Supabase Auth의 Site URL도 실제 배포 주소로 맞추세요. 현재 이메
 
 ## 4. 검증
 
+광고주 보고용 자동 코멘트·Gemini 설정·호출 한도·날씨 참고 기능은 [성과 코멘트 운영 안내](docs/gemini-setup.md)를 참고하세요. 유료 검색은 사용하지 않으며 프론트엔드와 Supabase 함수 배포는 별도입니다.
+
 ```bash
 npm test
 npm run lint
