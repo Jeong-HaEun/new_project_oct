@@ -65,6 +65,12 @@ async function requestAiReport(
       throw new Error(
         `서버 인증 오류(401): ${detail || '로그인 검증 실패'}. report-comment의 Verify JWT 설정을 OFF로 저장하고, Adporter에서 다시 로그인해 주세요.`,
       )
+    if (status === 403) {
+      // 허용 목록 밖의 계정(예: 한클래스 일반 회원)은 오류가 아니라 시연 대상 안내로 보여 준다
+      const notAllowed = new Error('AI 분석은 시연 계정에서만 제공합니다.')
+      notAllowed.code = 'AI_NOT_ALLOWED'
+      throw notAllowed
+    }
     if (status === 404)
       throw new Error(
         'report-comment 함수를 찾지 못했습니다(404). Adporter가 연결된 Supabase 프로젝트에 배포했는지 확인해 주세요.',

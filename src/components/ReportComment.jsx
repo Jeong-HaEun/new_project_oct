@@ -41,6 +41,8 @@ export function ReportComment({ rows, latestDate, media }) {
   const currentResult = result?.signature === signature ? result.text : null
   const loading = status?.signature === signature && status.loading
   const error = status?.signature === signature ? status.error : ''
+  const notAllowed = Boolean(error) && status.code === 'AI_NOT_ALLOWED'
+  const failed = Boolean(error) && !notAllowed
   const hasData = Boolean(comment)
 
   useEffect(() => {
@@ -130,6 +132,7 @@ export function ReportComment({ rows, latestDate, media }) {
             attempt: retry,
             loading: false,
             error: failure.message,
+            code: failure.code,
           })
         }
       }
@@ -185,10 +188,10 @@ export function ReportComment({ rows, latestDate, media }) {
       </p>
       {hasData && (
         <div
-          role={error && !processing ? 'alert' : 'status'}
+          role={failed && !processing ? 'alert' : 'status'}
           aria-live="polite"
           aria-atomic="true"
-          className={`mt-3 flex items-start gap-2 rounded border border-hairline p-3 text-sm ${error && !processing ? 'bg-bad-tint text-bad' : 'bg-canvas text-ink'}`}
+          className={`mt-3 flex items-start gap-2 rounded border border-hairline p-3 text-sm ${failed && !processing ? 'bg-bad-tint text-bad' : 'bg-canvas text-ink'}`}
         >
           {processing && (
             <span
@@ -202,7 +205,9 @@ export function ReportComment({ rows, latestDate, media }) {
                 ? noteReady
                   ? 'AI 분석 중입니다'
                   : '저장한 설정을 확인하고 있습니다'
-                : error
+                : notAllowed
+                  ? '기본 수치 분석을 표시하고 있습니다'
+                  : error
                   ? 'AI 분석을 완료하지 못했습니다'
                   : currentResult
                     ? result.partial
@@ -215,8 +220,10 @@ export function ReportComment({ rows, latestDate, media }) {
             <p className="mt-1 text-xs">
               {processing
                 ? `최대 ${appliedLimit}초 동안 AI 답변을 받습니다. 제한 시간이 되면 그때까지 완성된 분석 문장만 표시합니다.`
-                : error
-                  ? `${error} 기본 수치 비교는 계속 확인할 수 있습니다.`
+                : notAllowed
+                  ? 'AI 분석은 시연 계정에서만 제공합니다. 전일·전주 비교는 그대로 확인할 수 있어요.'
+                  : error
+                    ? `${error} 기본 수치 비교는 계속 확인할 수 있습니다.`
                   : currentResult
                     ? result.cached
                       ? '추가 Gemini 생성 호출 없이 기존 결과를 재사용했습니다.'
