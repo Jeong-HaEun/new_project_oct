@@ -35,10 +35,16 @@
   --font-display:
     'Bricolage Grotesque', 'Pretendard Variable', Pretendard, system-ui,
     sans-serif;
+  /* 표 숫자: DM Sans 웹폰트에는 고정폭 숫자(tnum)가 없어 Pretendard로 자릿수를 맞춘다 */
+  --font-numeric: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
 }
 
 @layer base {
   body {
     @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  table .tabular-nums {
+    font-family: var(--font-numeric);
   }
 }
