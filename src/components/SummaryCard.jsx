@@ -2,7 +2,7 @@
 import { CARD_FORMATTERS } from '../utils/format.js'
 import { ChangeBadge } from './ChangeBadge.jsx'
 
-// ROAS·CPA 큰 숫자만 토마토 (design.md 2절)
+// ROAS·CPA 큰 숫자만 대표색 (design.md 2절)
 const NUMBER_COLORS = {
   cost: 'text-ink',
   revenue: 'text-ink',
